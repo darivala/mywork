@@ -1,0 +1,40 @@
+<b>Explain the agile/scrum model in which you worked in your past company?</b>
+
+<b>Explain the different meetings in a sprint and what you will do</b>
+
+<b>There is a select drop down on a webpage for which you don’t know the tag at all how will you find it?</b>
+
+1. Use a broad XPath and then verify the element type:
+List<WebElement> elements = driver.findElements(By.xpath("//*"));
+for (WebElement el : elements) {
+    if (el.getTagName().equalsIgnoreCase("select") || 
+        el.getAttribute("role").equalsIgnoreCase("dropdown")) {
+        System.out.println("Dropdown found: " + el);
+    }
+}
+2. Use relative locators:
+WebElement label = driver.findElement(By.xpath("//label[text()='Country']"));
+// Find element below the label (could be <select>, <div>, etc.)
+WebElement dropdown = driver.findElement(with(By.tagName("*")).below(label));
+// Now interact
+dropdown.click();  // For custom dropdowns
+
+<b>You have three tables employee(empid,empname,address,exp)
+<b>salary(empid,salary,deptid) department(deptid,deptname). Find the 3rd highest salary
+
+SELECT e.empid,
+       e.empname,
+       s.salary,
+       d.deptname
+FROM (
+    SELECT empid,
+           salary,
+           deptid,
+           DENSE_RANK() OVER (PARTITION BY deptid ORDER BY salary DESC) AS sal_rank
+    FROM salary
+) s
+JOIN employee e ON e.empid = s.empid
+JOIN department d ON d.deptid = s.deptid
+WHERE s.sal_rank = 3;
+
+ 
