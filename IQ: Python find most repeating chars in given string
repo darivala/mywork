@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Feb  3 10:12:33 2026
+
+@author: awsmo
+"""
+
+#code to find the maximum repeating character in a string
+import sys
+def func(str):
+    arr=[]
+    for ch in str:
+        arr.append(ch)
+    arr.sort()
+    mydict={}
+    for ch in arr:
+        if ch!=' ' :
+            mydict[ch]=arr.count(ch)
+    print(mydict.items())
+    
+    #now sort the dictionary
+    
+    mydict=dict(sorted(mydict.items(),key=lambda x: x[1],reverse=True))
+        #data.items() → returns a list of (key, value) tuples.
+        #{'b': 3, 'a': 1, 'c': 2}.items() → [('b', 3), ('a', 1), ('c', 2)]
+        #sorted(..., key=lambda x: x[1]) → sorts these tuples based on the second element (value) of each pair.
+        #x is each tuple like ('b', 3).#x[1] means sort using the value (3, 1, 2).
+        #Result: [('a', 1), ('c', 2), ('b', 3)]
+        #dict(...) → converts the sorted list of tuples back into a dictionary.
+
+    first_key=list(mydict.keys())[0]
+    first_value=list(mydict.values())[0]
+        #dict.keys() returns a view object, not a list, so it’s not indexable directly
+        #convert into a list as below and then pick the first element
+    
+    print("the character repeated most is ", first_key)
+    print("that character is repeated these many times",first_value)
+    return first_key,first_value
+    
+    
+#str_ip=sys.argv[1]
+
+ch,cnt=func("deepika arivalagan egle estee")
+
+print(ch,cnt)
